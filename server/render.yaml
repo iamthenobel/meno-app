@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: meno-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: SECRET_KEY
+        value: your-secret-key
