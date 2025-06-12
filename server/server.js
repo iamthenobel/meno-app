@@ -9,7 +9,13 @@ const app = express();
 const db = new sqlite3.Database('./meno.db');
 const SECRET_KEY = 'supersecretkey'; // Use env in production
 
-app.use(cors());
+const cors = require('cors');
+
+app.use(cors({
+  origin: 'https://menosp.netlify.app',
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Create tables
