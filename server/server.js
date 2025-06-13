@@ -9,11 +9,21 @@ const app = express();
 const db = new sqlite3.Database('./meno.db');
 const SECRET_KEY = 'supersecretkey'; // Use env in production
 
-const cors = require('cors');
+// Allow multiple origins
+const allowedOrigins = [
+  'http://localhost:5173',     // local dev frontend
+  'https://menosp.netlify.app' // production frontend
+];
 
 app.use(cors({
-  origin: 'https://menosp.netlify.app',
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // if using cookies or auth headers
 }));
 
 app.use(express.json());
